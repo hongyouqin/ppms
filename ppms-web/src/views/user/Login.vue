@@ -8,7 +8,7 @@
       <a-row>
         <a-col :span="24" type="flex" align="middle" justify="center">
           <div class="login-container">
-            <a-form ref="form" class="login-form">
+            <a-form id="components-form-login" :form="form" class="login-form">
               <div class="panel-heading">
                 <h4 class="title">
                   登录<strong class="text-blue">PPMS</strong>
@@ -71,6 +71,11 @@
 import Head from "../../components/Head.vue";
 
 export default {
+  data() {
+    return {
+      form: this.$form.createForm(this, { name: "login" }),
+    };
+  },
   name: "Login",
   components: {
     Head,
@@ -99,7 +104,7 @@ export default {
   letter-spacing: 3px;
 }
 
-.submit {
+#components-form-login .submit {
   width: 345px;
   height: 39px;
 }
