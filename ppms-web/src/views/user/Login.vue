@@ -14,35 +14,39 @@
                   登录<strong class="text-blue">PPMS</strong>
                 </h4>
               </div>
-              <a-from-item>
+              <a-form-item>
                 <a-input
                   class="row-l2"
-                  style="width: 345px; height: 39px; margin-bottom: 16px"
+                  size="large"
                   id="email"
                   type="email"
                   placeholder="邮箱"
                 >
                 </a-input>
-              </a-from-item>
-              <a-form-item style="margin-bottom: 10px">
+              </a-form-item>
+              <a-form-item>
                 <a-input
                   class="row-l2"
-                  style="width: 345px; height: 39px"
                   id="password"
+                  size="large"
                   type="password"
                   placeholder="密码"
                 ></a-input>
               </a-form-item>
-              <a-form-item style="margin-bottom: 16px">
-                <a-checkbox style="width: 345px; text-align: left">
+              <a-form-item>
+                <a-checkbox size="large" style="width: 345px; text-align: left">
                   保持登录状态
                 </a-checkbox>
               </a-form-item>
-              <a-from-item>
-                <a-button class="submit" type="primary" @click="onSubmit"
+              <a-form-item>
+                <a-button
+                  class="submit"
+                  size="large"
+                  type="primary"
+                  @click="onSubmit"
                   >登录</a-button
                 >
-              </a-from-item>
+              </a-form-item>
               <a-form-item>
                 <div style="width: 345px; text-align: left">
                   <a class="login-form-forgot" href="">忘记密码</a>
@@ -107,6 +111,14 @@ export default {
 #components-form-login .submit {
   width: 345px;
   height: 39px;
+}
+
+#components-form-login .row-l2 {
+  width: 345px;
+}
+
+#components-form-login .ant-row {
+  margin-bottom: 16px;
 }
 
 .text-blue {
