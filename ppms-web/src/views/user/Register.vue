@@ -34,6 +34,7 @@
                   size="large"
                   id="confirm-email"
                   type="email"
+                  v-decorator="['confirmEmail', validatorRules.compareEmail]"
                   placeholder="确认邮箱"
                 >
                 </a-input>
@@ -108,14 +109,11 @@ export default {
           rules: [
             {
               type: "email",
-              message: "The input is not valid E-mail!",
+              message: "邮箱格式不正确!",
             },
             {
               required: true,
-              message: "Please input your E-mail!",
-            },
-            {
-              validator: this.compareEmail,
+              message: "请输入您的邮箱!",
             },
           ],
         },
@@ -165,17 +163,8 @@ export default {
   height: 530px;
   background-color: #ffffff;
   border-radius: 4px;
-}
-
-.row {
-  position: absolute;
-  width: 450px;
-}
-
-.panel-heading {
-  padding-top: 50px;
-  font-size: 17px;
-  letter-spacing: 3px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .head {
@@ -185,8 +174,15 @@ export default {
   font-size: 18px;
 }
 
-#components-form-reg .row-l2 {
-  width: 345px;
+#components-form-reg {
+  text-align: left;
+}
+
+#components-form-reg .panel-heading {
+  padding-top: 50px;
+  font-size: 17px;
+  letter-spacing: 3px;
+  text-align: center;
 }
 
 #components-form-reg .button-register {
