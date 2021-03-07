@@ -100,6 +100,8 @@ export default {
   height: 384px;
   background-color: #ffffff;
   border-radius: 4px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .panel-heading {
@@ -111,10 +113,6 @@ export default {
 #components-form-login .submit {
   width: 345px;
   height: 39px;
-}
-
-#components-form-login .row-l2 {
-  width: 345px;
 }
 
 #components-form-login .ant-row {
