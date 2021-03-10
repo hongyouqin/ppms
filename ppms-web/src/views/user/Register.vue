@@ -10,7 +10,6 @@
             <a-form
               id="components-form-reg"
               :form="form"
-              :rules="rules"
               class="reg-form"
               @submit="handleSubmit"
             >
@@ -165,11 +164,23 @@ export default {
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFields((err, values) => {
+
+      const {
+        form: { validateFields },
+        $router,
+      } = this;
+      validateFields({ force: true }, (err, values) => {
         if (!err) {
-          console.log("Received values of form: ", values);
+          $router.push({ name: "Home", params: { ...values } });
+        } else {
+          console.log("ERR Received values of form: ", values);
         }
       });
+      // this.form.validateFields((err, values) => {
+      //   if (!err) {
+      //     console.log("Received values of form: ", values);
+      //   }
+      // });
     },
     handleConfirmEmailBlur(e) {
       const value = e.target.value;

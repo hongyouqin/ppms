@@ -2,14 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import login from '../views/user/Login.vue'
 import reg from '../views/user/Register.vue'
+import home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
-    component: login
+    component: home
   },
   {
     path: '/login',
@@ -33,7 +34,9 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
+
 
 export default router

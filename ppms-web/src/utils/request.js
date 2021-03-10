@@ -1,5 +1,4 @@
 import axios from 'axios'
-import qs from 'qs'
 
 // 创建axios 实例
 const request = axios.create({

@@ -8,7 +8,12 @@
       <a-row>
         <a-col :span="24" type="flex" align="middle" justify="center">
           <div class="login-container">
-            <a-form id="components-form-login" :form="form" class="login-form">
+            <a-form
+              id="components-form-login"
+              :form="form"
+              class="login-form"
+              @submit="handleSubmit"
+            >
               <div class="panel-heading">
                 <h4 class="title">
                   登录<strong class="text-blue">PPMS</strong>
@@ -20,6 +25,10 @@
                   size="large"
                   id="email"
                   type="email"
+                  v-decorator="[
+                    'email',
+                    { rules: [{ required: true, message: '请输入邮箱' }] },
+                  ]"
                   placeholder="邮箱"
                 >
                 </a-input>
@@ -30,6 +39,10 @@
                   id="password"
                   size="large"
                   type="password"
+                  v-decorator="[
+                    'password',
+                    { rules: [{ required: true, message: '请输入密码' }] },
+                  ]"
                   placeholder="密码"
                 ></a-input>
               </a-form-item>
@@ -38,21 +51,19 @@
                   保持登录状态
                 </a-checkbox>
               </a-form-item>
-              <a-form-item>
+              <a-form-item style="margin-bottom: 4px">
                 <a-button
                   class="submit"
                   size="large"
                   type="primary"
-                  @click="onSubmit"
+                  htmlType="submit"
                   >登录</a-button
                 >
               </a-form-item>
-              <a-form-item>
-                <div style="width: 345px; text-align: left">
-                  <a class="login-form-forgot" href="">忘记密码</a>
-                </div>
-              </a-form-item>
             </a-form>
+            <div class="forgot">
+              <a class="login-form-forgot" href="">忘记密码</a>
+            </div>
             <div class="reg-label">
               <div>
                 <p>
@@ -73,12 +84,43 @@
 
 <script>
 import Head from "../../components/Head.vue";
+import { mapActions } from "vuex";
 
 export default {
   data() {
     return {
       form: this.$form.createForm(this, { name: "login" }),
     };
+  },
+  methods: {
+    ...mapActions(["Login"]),
+    handleSubmit(e) {
+      e.preventDefault();
+      const {
+        form: { validateFields },
+        // $router,
+        Login,
+      } = this;
+      validateFields({ force: true }, (err, values) => {
+        if (!err) {
+          const loginParams = { ...values };
+          console.log(loginParams);
+          Login(loginParams)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+            .finally(() => {
+              console.log("login complete");
+            });
+          // $router.push({ name: "Home", params: { ...values } });
+        } else {
+          console.log("ERR Received values of form: ", values);
+        }
+      });
+    },
   },
   name: "Login",
   components: {
@@ -97,26 +139,27 @@ export default {
 
 .login-container {
   width: 450px;
-  height: 384px;
+  height: 404px;
   background-color: #ffffff;
   border-radius: 4px;
   padding-left: 50px;
   padding-right: 50px;
 }
 
-.panel-heading {
+#components-form-login .panel-heading {
   padding-top: 50px;
   font-size: 17px;
   letter-spacing: 3px;
+  text-align: center;
+}
+
+#components-form-login {
+  text-align: left;
 }
 
 #components-form-login .submit {
   width: 345px;
   height: 39px;
-}
-
-#components-form-login .ant-row {
-  margin-bottom: 16px;
 }
 
 .text-blue {
@@ -128,10 +171,13 @@ export default {
   color: #4a81d4;
 }
 
+.forgot {
+  text-align: left;
+  margin-top: 16px;
+}
+
 .reg-label {
-  position: absolute;
-  width: 450px;
-  bottom: 0px;
+  margin-top: 5px;
 }
 
 .head {
