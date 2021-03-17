@@ -1,5 +1,7 @@
 package com.qhy.ppmsadmin.repository;
 
+import java.util.Date;
+
 import com.qhy.ppmsadmin.dto.UserInfo;
 
 import org.hibernate.HibernateException;
@@ -17,13 +19,12 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
 
     @Override
     public UserInfo findByEmail(String email) {
-        // TODO Auto-generated method stub
         try {
             Session session = sessionFactory.getCurrentSession();
-            UserInfo userInfo = session.createQuery("from user_info as u where u.email = :id", UserInfo.class)
+            UserInfo userInfo = session.createQuery("from UserInfo as u where u.email = :email", UserInfo.class)
                     .setParameter("email", email).getSingleResult();
             return userInfo;
-        } catch (HibernateException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
@@ -31,13 +32,19 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
 
     @Override
     public UserInfo findByName(String userName) {
-        // TODO Auto-generated method stub
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            UserInfo userInfo = session.createQuery("from UserInfo as u where u.user_name = :user_name", UserInfo.class)
+                    .setParameter("user_name", userName).getSingleResult();
+            return userInfo;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public UserInfo save(UserInfo user) {
-        // TODO Auto-generated method stub
 
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -45,7 +52,7 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
             session.save(user);
             tx.commit();
             return user;
-        } catch (HibernateException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -53,9 +60,23 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     }
 
     @Override
-    public UserInfo updateUser(UserInfo user, String email) {
-        // TODO Auto-generated method stub
-        return null;
+    public UserInfo updateLoginTime(Date loginTime, String userName) {
+        UserInfo existUser = this.findByName(userName);
+        if (existUser == null) {
+            return null;
+        }
+        existUser.setLoginTime(loginTime);
+        return existUser;
+    }
+
+    @Override
+    public UserInfo updatePassword(String password, String userName) {
+        UserInfo existUser = this.findByName(userName);
+        if (existUser == null) {
+            return null;
+        }
+        existUser.setPassword(password);
+        return existUser;
     }
 
 }

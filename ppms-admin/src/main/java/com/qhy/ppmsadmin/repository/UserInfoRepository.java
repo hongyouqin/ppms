@@ -1,5 +1,7 @@
 package com.qhy.ppmsadmin.repository;
 
+import java.util.Date;
+
 import com.qhy.ppmsadmin.dto.UserInfo;
 
 //用户信息接口
@@ -10,5 +12,7 @@ public interface UserInfoRepository {
 
     UserInfo save(UserInfo user);
 
-    UserInfo updateUser(UserInfo user, String email);
+    UserInfo updateLoginTime(Date loginTime, String userName);
+
+    UserInfo updatePassword(String password, String userName);
 }

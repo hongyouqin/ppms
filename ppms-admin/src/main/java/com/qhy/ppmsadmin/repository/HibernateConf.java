@@ -1,7 +1,5 @@
 package com.qhy.ppmsadmin.repository;
 
-import java.util.Properties;
-
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;

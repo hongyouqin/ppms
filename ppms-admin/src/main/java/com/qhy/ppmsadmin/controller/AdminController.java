@@ -1,13 +1,12 @@
 package com.qhy.ppmsadmin.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.qhy.ppmsadmin.common.api.CommonResult;
 import com.qhy.ppmsadmin.dto.UserInfo;
 import com.qhy.ppmsadmin.dto.UserRegisterParam;
-import com.qhy.ppmsadmin.repository.UserInfoRepositoryImpl;
+import com.qhy.ppmsadmin.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +23,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 public class AdminController {
 
     @Autowired
-    UserInfoRepositoryImpl userInfoRepository;
+    private AdminService adminServiceImpl;
 
     @ApiOperation(value = "用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -37,12 +36,10 @@ public class AdminController {
     @ApiOperation(value = "新用户注册", response = UserInfo.class, consumes = "application/json")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public CommonResult<UserInfo> register(@RequestBody UserRegisterParam param) {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setEmail(param.getEmail());
-        userInfo.setUserName(param.getUserName());
-        userInfo.setPassword(param.getPassword());
-        userInfo.setCreatedTime(new Date());
-        userInfoRepository.save(userInfo);
+        UserInfo userInfo = adminServiceImpl.register(param);
+        if (userInfo == null) {
+            return CommonResult.failed("用户名或者邮箱名已经存在");
+        }
         return CommonResult.success(userInfo);
     }
 }
