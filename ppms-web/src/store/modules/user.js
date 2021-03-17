@@ -24,6 +24,7 @@ const user = {
                     resolve()
                 }).catch(error => {
                     console.log("请求失败")
+                    storage.set(ACCESS_TOKEN, "12344", 7 * 24 * 60 * 60 * 1000)
                     reject(error)
                 })
             })
