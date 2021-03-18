@@ -2,7 +2,7 @@ package com.qhy.ppmsadmin.repository;
 
 import java.util.Date;
 
-import com.qhy.ppmsadmin.dto.UserInfo;
+import com.qhy.ppmsadmin.entity.UserInfo;
 
 //用户信息接口
 public interface UserInfoRepository {

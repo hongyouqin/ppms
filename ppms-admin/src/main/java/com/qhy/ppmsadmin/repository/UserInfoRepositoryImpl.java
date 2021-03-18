@@ -2,9 +2,7 @@ package com.qhy.ppmsadmin.repository;
 
 import java.util.Date;
 
-import com.qhy.ppmsadmin.dto.UserInfo;
-
-import org.hibernate.HibernateException;
+import com.qhy.ppmsadmin.entity.UserInfo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

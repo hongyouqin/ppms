@@ -1,4 +1,4 @@
-package com.qhy.ppmsadmin.dto;
+package com.qhy.ppmsadmin.entity;
 
 import java.util.Date;
 
@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.context.annotation.Primary;
 
 import io.swagger.annotations.ApiModelProperty;
 
