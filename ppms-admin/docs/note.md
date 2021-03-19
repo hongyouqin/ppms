@@ -7,4 +7,5 @@
 
 
 ## 概念
-LogStash 一个轻量级的日志收集框架
+LogStash 一个轻量级的日志收集框架  
+RBAC（Role-Based Access Control），也就是所谓的**“基于角色的访问控制权限”**。
