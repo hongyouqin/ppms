@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.qhy.ppmsadmin.common.api.CommonResult;
+import com.qhy.ppmsadmin.common.config.CustomJwtConfig;
 import com.qhy.ppmsadmin.dto.UserLoginParam;
 import com.qhy.ppmsadmin.dto.UserRegisterParam;
 import com.qhy.ppmsadmin.entity.UserInfo;
 import com.qhy.ppmsadmin.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,11 +24,11 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RequestMapping(value = "/auth")
 public class AdminController {
 
-    // @Value("${jwt.tokenPrefix}")
-    private String tokenHead = "bb";
-
     @Autowired
     private AdminService adminServiceImpl;
+
+    @Autowired
+    private CustomJwtConfig config;
 
     @ApiOperation(value = "用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -39,7 +39,7 @@ public class AdminController {
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
+        tokenMap.put("tokenHead", config.getTokenHead());
         return CommonResult.success(tokenMap);
     }
 

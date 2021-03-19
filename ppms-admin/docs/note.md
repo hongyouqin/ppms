@@ -4,3 +4,7 @@
 
 ## 已知问题
 1. org.hibernate.query.sqm.InterpretationException: Error interpreting query报错，网上说是因为用了6.0.0.Alpha6版本，回退到5.x.x版本就好了。其实不用那样，报这个错误，有一点可以排查下，就是数据库名是那个entity类的类名，不是@Table(name = "user_info")所对应的名称。
+
+
+## 概念
+LogStash 一个轻量级的日志收集框架

@@ -2,7 +2,11 @@ package com.qhy.ppmsadmin.repository;
 
 import java.util.Date;
 
+import javax.persistence.NoResultException;
+
 import com.qhy.ppmsadmin.entity.UserInfo;
+import com.qhy.ppmsadmin.exception.DatabaseManipulationException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -22,23 +26,29 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
             UserInfo userInfo = session.createQuery("from UserInfo as u where u.email = :email", UserInfo.class)
                     .setParameter("email", email).getSingleResult();
             return userInfo;
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+            return null;
         } catch (Exception ex) {
             ex.printStackTrace();
+            throw new DatabaseManipulationException(email + " not found");
         }
-        return null;
     }
 
     @Override
     public UserInfo findByName(String userName) {
         try {
             Session session = sessionFactory.getCurrentSession();
-            UserInfo userInfo = session.createQuery("from UserInfo as u where u.user_name = :user_name", UserInfo.class)
+            UserInfo userInfo = session.createQuery("from UserInfo as u where u.userName = :user_name", UserInfo.class)
                     .setParameter("user_name", userName).getSingleResult();
             return userInfo;
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+            return null;
         } catch (Exception ex) {
             ex.printStackTrace();
+            throw new DatabaseManipulationException(userName + " not found");
         }
-        return null;
     }
 
     @Override
@@ -52,9 +62,8 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
             return user;
         } catch (Exception ex) {
             ex.printStackTrace();
+            throw new DatabaseManipulationException(user.getUserName() + " save failed");
         }
-
-        return null;
     }
 
     @Override
@@ -64,7 +73,7 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
             return null;
         }
         existUser.setLoginTime(loginTime);
-        return existUser;
+        return save(existUser);
     }
 
     @Override
@@ -74,7 +83,7 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
             return null;
         }
         existUser.setPassword(password);
-        return existUser;
+        return save(existUser);
     }
 
 }

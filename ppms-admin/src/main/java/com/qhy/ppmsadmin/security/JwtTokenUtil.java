@@ -4,9 +4,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.qhy.ppmsadmin.common.config.CustomConfig;
+
+import org.antlr.v4.parse.ANTLRParser.exceptionGroup_return;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -21,11 +26,14 @@ public class JwtTokenUtil {
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
 
-    @Value("${jwt.secret}")
+    public JwtTokenUtil(String secret, String tokenHead, Long expiration) {
+        this.secret = secret;
+        this.tokenHead = tokenHead;
+        this.expiration = expiration;
+    }
+
     private String secret;
-    @Value("${jwt.expiration}")
     private Long expiration;
-    @Value("${jwt.tokenPrefix}")
     private String tokenHead;
 
     /**

@@ -3,6 +3,7 @@ package com.qhy.ppmsadmin.service.impl;
 import java.util.Date;
 
 import com.qhy.ppmsadmin.entity.UserInfo;
+import com.qhy.ppmsadmin.common.config.CustomJwtConfig;
 import com.qhy.ppmsadmin.dto.UserLoginParam;
 import com.qhy.ppmsadmin.dto.UserRegisterParam;
 import com.qhy.ppmsadmin.repository.UserInfoRepositoryImpl;
@@ -17,6 +18,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     UserInfoRepositoryImpl userInfoRepository;
+
+    @Autowired
+    private CustomJwtConfig config;
 
     public AdminServiceImpl() {
 
@@ -68,7 +72,7 @@ public class AdminServiceImpl implements AdminService {
         String pwd = existUser.getPassword();
         if (pwd.equals(param.getPassword())) {
             // 返回jwt token
-            JwtTokenUtil jwt = new JwtTokenUtil();
+            JwtTokenUtil jwt = new JwtTokenUtil(config.getSecret(), config.getTokenHead(), config.getExpiration());
             return jwt.generateToken(existUser.getEmail());
         }
 
