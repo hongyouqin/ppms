@@ -20,6 +20,7 @@ new Vue({
   store,
   created: function () {
     //初始化
+    //storage.clearAll()
     store.commit('SET_TOKEN', storage.get(ACCESS_TOKEN))
   },
   render: h => h(App)

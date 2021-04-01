@@ -98,7 +98,7 @@ export default {
       e.preventDefault();
       const {
         form: { validateFields },
-        // $router,
+        $router,
         Login,
       } = this;
       validateFields({ force: true }, (err, values) => {
@@ -115,7 +115,7 @@ export default {
             .finally(() => {
               console.log("login complete");
             });
-          // $router.push({ name: "Home", params: { ...values } });
+          $router.push({ name: "Home", params: { ...values } });
         } else {
           console.log("ERR Received values of form: ", values);
         }
