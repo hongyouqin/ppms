@@ -4,6 +4,7 @@ import login from '../views/user/Login.vue'
 import reg from '../views/user/Register.vue'
 import home from '../views/Home.vue'
 import expense from '../views/Expense.vue'
+import dashboard from '../views/Dashboard.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,11 @@ const routes = [
         path: '/expense',
         name: 'expense',
         component: expense
+      },
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: dashboard
       }
     ]
   },

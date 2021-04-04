@@ -1,0 +1,24 @@
+
+/* 让元素始终处于页面的最底部 */
+ .ant-layout-footer {
+    position: relative;
+    width: 100%;
+    text-align: center;
+} 
+
+.page {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 10px;
+    height: 100%;
+}
+
+.ant-layout-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1;
+  }
