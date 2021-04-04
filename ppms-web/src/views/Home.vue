@@ -95,9 +95,7 @@
           <a-layout-content
             :style="{
               background: '#fff',
-              padding: '24px',
-              minHeight: '280px',
-              overflow: 'initial',
+              minHeight: '380px',
             }"
           >
             <router-view></router-view>
@@ -168,12 +166,12 @@ export default {
 
 #components-layout-root .logo-box {
   height: 64px;
-  background-color: #3a4149;
+  background-color: #fff;
 }
 
 #components-layout-root .logo {
   font-size: 20px;
-  color: #ffffff;
+  color: #595959;
   line-height: 64px;
 }
 

@@ -192,5 +192,11 @@ export default {
 .editable-row-operations a {
   margin-right: 8px;
 }
+
+.expense {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 </style>
   
