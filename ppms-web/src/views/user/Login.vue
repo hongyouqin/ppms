@@ -115,7 +115,7 @@ export default {
             .finally(() => {
               console.log("login complete");
             });
-          $router.push({ name: "Home", params: { ...values } });
+          $router.push({ name: "home", params: { ...values } });
         } else {
           console.log("ERR Received values of form: ", values);
         }

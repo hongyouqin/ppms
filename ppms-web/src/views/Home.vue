@@ -6,6 +6,7 @@
           v-model="collapsed"
           :inline-collapsed="collapsed"
           :trigger="null"
+          style="background: #fff"
         >
           <div class="logo-box">
             <router-link to="" class="logo">
@@ -18,16 +19,18 @@
             </router-link>
           </div>
           <a-menu mode="inline" theme="light" style="text-align: left">
-            <a-menu-item key="home">
+            <a-menu-item key="home" @click="handleDashboard">
               <a-icon type="home" />
-              <span>主页</span>
+              <span>Dashboard</span>
             </a-menu-item>
             <a-sub-menu key="sys-manage">
               <span slot="title">
                 <a-icon type="user" />
                 <span>系统管理</span>
               </span>
-              <a-menu-item key="user-manage">用户</a-menu-item>
+              <a-menu-item key="user-manage" @click="handleUserManage"
+                >用户</a-menu-item
+              >
               <a-menu-item key="role-manage">角色</a-menu-item>
               <a-menu-item key="permission-manage">权限</a-menu-item>
             </a-sub-menu>
@@ -36,8 +39,14 @@
                 ><a-icon type="account-book" />
                 <span>收支管理</span>
               </span>
-              <a-menu-item key="income-manage">收入</a-menu-item>
-              <a-menu-item key="expenses-manage">支出</a-menu-item>
+              <a-menu-item key="income-manage" @click="handleIncome"
+                >收入</a-menu-item
+              >
+              <a-menu-item
+                key="expenses-manage"
+                @click="handleExpenses('expense')"
+                >支出</a-menu-item
+              >
             </a-sub-menu>
             <a-menu-item key="goods-manage">
               <a-icon type="inbox" />
@@ -74,7 +83,7 @@
                       icon="user"
                       style="margin-right: 8px"
                     />
-                    <span>Qinhy</span>
+                    <span style="margin-right: 5px">Qinhy</span>
                     <a-icon type="down" />
                   </span>
                 </div>
@@ -87,10 +96,18 @@
               </a-dropdown>
             </div>
           </a-layout-header>
-          <a-layout-content>
-            <div>Content</div>
+          <a-layout-content
+            :style="{
+              background: '#fff',
+              padding: '24px',
+              margin: 0,
+              minHeight: '280px',
+              overflow: 'initial',
+            }"
+          >
+            <router-view></router-view>
           </a-layout-content>
-          <a-layout-footer style="text-align: center">
+          <a-layout-footer style="text-align: center; background: #fff">
             PPMS ©2021 Created by qhy
           </a-layout-footer>
         </a-layout>
@@ -111,6 +128,16 @@ export default {
   methods: {
     triggerFunc: function () {
       this.collapsed = !this.collapsed;
+    },
+    handleDashboard: function () {},
+    handleIncome: function () {
+      console.log("income page");
+    },
+    handleExpenses: function (componentName) {
+      this.$router.push(componentName);
+    },
+    handleUserManage: function () {
+      console.log("user manage");
     },
   },
 };
