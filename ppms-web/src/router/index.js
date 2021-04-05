@@ -5,6 +5,13 @@ import reg from '../views/user/Register.vue'
 import home from '../views/Home.vue'
 import expense from '../views/Expense.vue'
 import dashboard from '../views/Dashboard.vue'
+import user from '../views/User.vue'
+import role from '../views/Role.vue'
+import privilege from '../views/Privilege.vue'
+import income from '../views/Income.vue'
+import item from '../views/ItemManage.vue'
+import investment from '../views/Investment.vue'
+import early from '../views/EarlyWarning.vue'
 
 Vue.use(VueRouter)
 
@@ -20,10 +27,46 @@ const routes = [
         component: expense
       },
       {
+        path: '/income',
+        name: 'income',
+        component: income
+      },
+      {
         path: '/dashboard',
         name: 'dashboard',
         component: dashboard
+      },
+      {
+        path: '/user',
+        name: 'sys',
+        component: user
+      },
+      {
+        path: '/role',
+        name: 'role',
+        component: role
+      },
+      {
+        path: '/privilege',
+        name: 'privilege',
+        component: privilege
+      },
+      {
+        path: '/item',
+        name: 'item',
+        component: item
+      },
+      {
+        path: '/investment',
+        name: 'investment',
+        component: investment
+      },
+      {
+        path: '/early',
+        name: 'early',
+        component: early
       }
+
     ]
   },
   {

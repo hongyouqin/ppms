@@ -30,8 +30,12 @@
             <a-menu-item key="user-manage" @click="handleUserManage"
               >用户</a-menu-item
             >
-            <a-menu-item key="role-manage">角色</a-menu-item>
-            <a-menu-item key="permission-manage">权限</a-menu-item>
+            <a-menu-item key="role-manage" @click="handleRole"
+              >角色</a-menu-item
+            >
+            <a-menu-item key="permission-manage" @click="handlePermission"
+              >权限</a-menu-item
+            >
           </a-sub-menu>
           <a-sub-menu key="ie-manage">
             <span slot="title"
@@ -47,15 +51,15 @@
               >支出</a-menu-item
             >
           </a-sub-menu>
-          <a-menu-item key="goods-manage">
+          <a-menu-item key="goods-manage" @click="handleGoods">
             <a-icon type="inbox" />
             <span>物品管理</span>
           </a-menu-item>
-          <a-menu-item key="invest">
+          <a-menu-item key="invest" @click="handleInvest">
             <a-icon type="gold" />
             <span>个人投资</span>
           </a-menu-item>
-          <a-menu-item key="early-warning">
+          <a-menu-item key="early-warning" @click="handleEarly">
             <a-icon type="alert" />
             <span>财务预警</span>
           </a-menu-item>
@@ -124,13 +128,28 @@ export default {
       this.$router.push("dashboard");
     },
     handleIncome: function () {
-      console.log("income page");
+      this.$router.push("income");
     },
     handleExpenses: function (componentName) {
       this.$router.push(componentName);
     },
     handleUserManage: function () {
-      console.log("user manage");
+      this.$router.push("user");
+    },
+    handleRole: function () {
+      this.$router.push("role");
+    },
+    handlePermission: function () {
+      this.$router.push("privilege");
+    },
+    handleGoods: function () {
+      this.$router.push("item");
+    },
+    handleInvest: function () {
+      this.$router.push("investment");
+    },
+    handleEarly: function () {
+      this.$router.push("early");
     },
   },
 };
