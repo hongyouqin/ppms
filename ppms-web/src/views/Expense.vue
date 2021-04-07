@@ -1,11 +1,64 @@
 <template>
   <div class="expense">
+    <a-breadcrumb style="margin: 16px 15px; text-align: left">
+      <a-breadcrumb-item>主页</a-breadcrumb-item>
+      <a-breadcrumb-item>收支管理</a-breadcrumb-item>
+      <a-breadcrumb-item>支出</a-breadcrumb-item>
+    </a-breadcrumb>
+    <div id="component-advanced-search">
+      <a-form class="advanced-search-form" :form="form">
+        <a-row :gutter="16" id="search-layout-1">
+          <a-col :span="8">
+            <a-form-item :label="`开始时间`">
+              <a-date-picker placeholder="请选择时间" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item :label="`结束时间`">
+              <a-date-picker placeholder="请选择时间" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="8" :style="{ textAlign: 'right' }">
+            <a-form-item :label="`记录名称`">
+              <a-input placeholder="请输入名字" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item :label="`支出类型`">
+              <a-input placeholder="请输入分类名" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item :label="`标题内容`">
+              <a-input placeholder="请输入标题内容" />
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item :label="`备注内容`">
+              <a-input placeholder="请输入备注内容" />
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-row>
+          <a-col :span="24" :style="{ textAlign: 'right' }">
+            <a-button type="primary" html-type="submit"> 搜索 </a-button>
+            <a-button :style="{ marginLeft: '8px' }" @click="handleReset">
+              清空
+            </a-button>
+          </a-col>
+        </a-row>
+        <a-form-item></a-form-item>
+      </a-form>
+    </div>
+    <div class="add-layout">
+      <a-button type="primary">添加</a-button>
+    </div>
     <a-table :columns="columns" :data-source="data">
       <template
         v-for="col in [
           '标题',
           '金额',
-          '分类',
+          '支出类型',
           '冲动性消费',
           '备注',
           '记录者',
@@ -59,9 +112,9 @@ const columns = [
     scopedSlots: { customRender: "金额" },
   },
   {
-    title: "分类",
-    dataIndex: "分类",
-    scopedSlots: { customRender: "分类名称" },
+    title: "支出类型",
+    dataIndex: "支出类型",
+    scopedSlots: { customRender: "支出类型" },
   },
   {
     title: "冲动性消费",
@@ -90,39 +143,13 @@ const columns = [
   },
 ];
 
-// const columns = [
-//   {
-//     title: "name",
-//     dataIndex: "name",
-//     width: "25%",
-//     scopedSlots: { customRender: "name" },
-//   },
-//   {
-//     title: "age",
-//     dataIndex: "age",
-//     width: "15%",
-//     scopedSlots: { customRender: "age" },
-//   },
-//   {
-//     title: "address",
-//     dataIndex: "address",
-//     width: "40%",
-//     scopedSlots: { customRender: "address" },
-//   },
-//   {
-//     title: "operation",
-//     dataIndex: "operation",
-//     scopedSlots: { customRender: "operation" },
-//   },
-// ];
-
 const data = [];
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i.toString(),
     标题: `买菜${i} `,
     金额: "20",
-    分类: "吃饭",
+    支出类型: "吃饭",
     生成时间: "2021-04-03 19:20:34",
     冲动性消费: "否",
     备注: "菜市场买菜fdsafsd买菜f买菜f买菜f买菜发觉螺蛳粉就打算减肥快速的减肥",
@@ -136,7 +163,14 @@ export default {
       data,
       columns,
       editingKey: "",
+      expand: false,
+      form: this.$form.createForm(this, { name: "advanced_search" }),
     };
+  },
+  computed: {
+    count() {
+      return this.expand ? 11 : 7;
+    },
   },
   methods: {
     handleChange(value, key, column) {
@@ -152,7 +186,6 @@ export default {
       const target = newData.filter((item) => key === item.key)[0];
       this.editingKey = key;
       if (target) {
-        console.log("==========: ", key);
         target.editable = true;
         this.data = newData;
       }
@@ -193,10 +226,32 @@ export default {
   margin-right: 8px;
 }
 
-.expense {
-  position: relative;
-  width: 100%;
-  height: 100%;
+.advanced-search-form {
+  padding: 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  margin: 15px;
+}
+
+.advanced-search-form .ant-form-item {
+  display: flex;
+}
+
+.advanced-search-form .ant-form-item-control-wrapper {
+  flex: 1;
+}
+
+#component-advanced-search .ant-form {
+  max-width: none;
+}
+
+#search-layout-1 {
+  text-align: right;
+}
+
+.add-layout {
+  text-align: left;
+  margin: 15px;
 }
 </style>
   

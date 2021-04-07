@@ -5,6 +5,7 @@
         v-model="collapsed"
         :inline-collapsed="collapsed"
         :trigger="null"
+        :width="240"
         style="background: #fff"
       >
         <div class="logo-box">
@@ -17,7 +18,12 @@
             </span>
           </router-link>
         </div>
-        <a-menu mode="inline" theme="light" style="text-align: left">
+        <a-menu
+          mode="inline"
+          theme="light"
+          style="text-align: left"
+          :default-selected-keys="['home']"
+        >
           <a-menu-item key="home" @click="handleDashboard">
             <a-icon type="home" />
             <span>Dashboard</span>
@@ -95,21 +101,17 @@
             </a-dropdown>
           </div>
         </a-layout-header>
-        <div class="page">
-          <a-layout-content
-            :style="{
-              background: '#fff',
-              minHeight: '380px',
-            }"
-          >
+        <a-layout-content>
+          <div>
             <router-view></router-view>
-          </a-layout-content>
-          <a-layout-footer> PPMS ©2021 Created by qhy </a-layout-footer>
-        </div>
+          </div>
+        </a-layout-content>
+        <a-layout-footer> PPMS ©2021 Created by qhy </a-layout-footer>
       </a-layout>
     </a-layout>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -155,20 +157,16 @@ export default {
 };
 </script>
 
+
 <style src="../utils/css/home-footer.css">
 </style>
 
 <style scoped>
 .home {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-#components-layout-root {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  justify-content: space-between;
 }
 
 #components-layout-root .trigger {

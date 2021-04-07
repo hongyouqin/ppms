@@ -82,7 +82,8 @@ const routes = [
   {
     path: '',
     name: 'def',
-    component: login
+    component: login,
+    redirect: '/dashboard'
   }
 
   // {

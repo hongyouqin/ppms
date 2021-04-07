@@ -4,10 +4,12 @@
     <a-empty />
   </div>
 </template>
-    <script>
+
+<script>
 export default {
   name: "ItemManage",
 };
 </script>
-    <style scoped>
+
+<style scoped>
 </style>
