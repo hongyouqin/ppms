@@ -6,7 +6,7 @@
       <a-breadcrumb-item>支出</a-breadcrumb-item>
     </a-breadcrumb>
     <div id="component-advanced-search">
-      <a-form class="advanced-search-form" :form="form">
+      <a-form class="advanced-search-form" :form="form" @submit="handleSearch">
         <a-row :gutter="16" id="search-layout-1">
           <a-col :span="8">
             <a-form-item :label="`开始时间`">
@@ -51,7 +51,8 @@
       </a-form>
     </div>
     <div class="add-layout">
-      <a-button type="primary">添加</a-button>
+      <a-button type="primary" @click="showExpenseForm">添加</a-button>
+      <expense-form ref="expense"></expense-form>
     </div>
     <a-table :columns="columns" :data-source="data">
       <template
@@ -100,6 +101,8 @@
 
 
 <script>
+import expenseForm from "../components/ExpenseForm.vue";
+
 const columns = [
   {
     title: "标题",
@@ -172,6 +175,10 @@ export default {
       return this.expand ? 11 : 7;
     },
   },
+  name: "Expense",
+  components: {
+    expenseForm,
+  },
   methods: {
     handleChange(value, key, column) {
       const newData = [...this.data];
@@ -215,6 +222,19 @@ export default {
         delete target.editable;
         this.data = newData;
       }
+    },
+    handleSearch(e) {
+      e.preventDefault();
+      this.form.validateFields((error, values) => {
+        console.log("error", error);
+        console.log("Received values of form: ", values);
+      });
+    },
+    handleReset() {
+      this.form.resetFields();
+    },
+    showExpenseForm() {
+      this.$refs.expense.setVisible(true);
     },
   },
 };
