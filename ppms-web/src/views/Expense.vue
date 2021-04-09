@@ -52,7 +52,7 @@
     </div>
     <div class="add-layout">
       <a-button type="primary" @click="showExpenseForm">添加</a-button>
-      <expense-form ref="expense"></expense-form>
+      <expense-form ref="expense" @datas="eventDatas"></expense-form>
     </div>
     <a-table :columns="columns" :data-source="data">
       <template
@@ -102,6 +102,7 @@
 
 <script>
 import expenseForm from "../components/ExpenseForm.vue";
+import { formatDatetime } from "../utils/dateUtil.js";
 
 const columns = [
   {
@@ -146,19 +147,20 @@ const columns = [
   },
 ];
 
-const data = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i.toString(),
-    标题: `买菜${i} `,
-    金额: "20",
-    支出类型: "吃饭",
-    生成时间: "2021-04-03 19:20:34",
-    冲动性消费: "否",
-    备注: "菜市场买菜fdsafsd买菜f买菜f买菜f买菜发觉螺蛳粉就打算减肥快速的减肥",
-    记录者: "qinhy",
-  });
-}
+var data = [];
+// for (let i = 0; i < 100; i++) {
+//   data.push({
+//     key: i.toString(),
+//     标题: `买菜${i} `,
+//     金额: "20",
+//     支出类型: "吃饭",
+//     生成时间: "2021-04-03 19:20:34",
+//     冲动性消费: "否",
+//     备注: "菜市场买菜fdsafsd买菜f买菜f买菜f买菜发觉螺蛳粉就打算减肥快速的减肥",
+//     记录者: "qinhy",
+//   });
+// }
+
 export default {
   data() {
     this.cacheData = data.map((item) => ({ ...item }));
@@ -166,15 +168,16 @@ export default {
       data,
       columns,
       editingKey: "",
-      expand: false,
+      keyCount: 0,
       form: this.$form.createForm(this, { name: "advanced_search" }),
     };
   },
-  computed: {
-    count() {
-      return this.expand ? 11 : 7;
-    },
+  created() {
+    let datas = this.$store.getters.getExpenseDatas;
+    console.log("created datas: ", datas);
+    this.data = datas;
   },
+  computed: {},
   name: "Expense",
   components: {
     expenseForm,
@@ -235,6 +238,32 @@ export default {
     },
     showExpenseForm() {
       this.$refs.expense.setVisible(true);
+    },
+    eventDatas(values) {
+      var date = values.date;
+      let fmtDate = formatDatetime(date, "yyyy-MM-dd hh:mm:sss");
+      var showDatas = {
+        key: this.keyCount.toString(),
+        标题: values.title,
+        金额: values.price,
+        支出类型: values.expensesType,
+        生成时间: fmtDate,
+        冲动性消费: values.impulse,
+        备注: values.remarks,
+        记录者: values.recorder,
+      };
+
+      //添加支出
+      if (this.data.length == 0) {
+        this.data.push(showDatas);
+      } else {
+        this.data.splice(0, 0, showDatas);
+      }
+
+      this.keyCount++;
+      this.$store.commit("SET_EXPENSE_DATAS", this.data);
+      let datas = this.$store.getters.getExpenseDatas;
+      console.log("store datas: ", datas);
     },
   },
 };

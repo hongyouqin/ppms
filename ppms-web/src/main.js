@@ -22,6 +22,7 @@ new Vue({
     //初始化
     //storage.clearAll()
     store.commit('SET_TOKEN', storage.get(ACCESS_TOKEN))
+    console.log("*********main start============")
   },
   render: h => h(App)
 }).$mount('#app')

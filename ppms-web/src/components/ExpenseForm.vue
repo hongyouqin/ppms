@@ -19,13 +19,15 @@
             <a-input
               v-decorator="[
                 'title',
-                { rules: [{ required: true, message: '请输入标题' }] },
+                {
+                  rules: [{ required: true, message: '请输入标题' }],
+                  initialValue: '',
+                },
               ]"
             />
           </a-form-item>
           <a-form-item label="金额">
             <a-input-number
-              :default-value="0"
               :formatter="
                 (value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
               "
@@ -34,7 +36,7 @@
                 'price',
                 {
                   rules: [{ required: true, message: '请输入金额' }],
-                  initialValue: 0,
+                  initialValue: '0',
                 },
               ]"
             />
@@ -45,6 +47,7 @@
                 'expensesType',
                 {
                   rules: [{ required: true, message: '请输入支出类型' }],
+                  initialValue: '',
                 },
               ]"
             />
@@ -54,14 +57,13 @@
               v-decorator="[
                 'impulse',
                 {
-                  rules: [
-                    { required: true, message: 'Please select your gender!' },
-                  ],
+                  rules: [{ required: true, message: '请选择一个' }],
+                  initialValue: '否',
                 },
               ]"
             >
-              <a-select-option value="male"> 是 </a-select-option>
-              <a-select-option value="female"> 否 </a-select-option>
+              <a-select-option value="是"> 是 </a-select-option>
+              <a-select-option value="否"> 否 </a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item label="记录者">
@@ -70,6 +72,7 @@
                 'recorder',
                 {
                   rules: [{ required: true, message: '请输入录入者名字' }],
+                  initialValue: '',
                 },
               ]"
             />
@@ -81,6 +84,7 @@
                 'remarks',
                 {
                   rules: [{ required: true, message: '请输入备注内容' }],
+                  initialValue: '',
                 },
               ]"
             />
@@ -109,14 +113,23 @@ export default {
   },
   methods: {
     handleOk() {
-      this.confirmLoading = true;
-      setTimeout(() => {
-        this.visible = false;
-        this.confirmLoading = false;
-      }, 2000);
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          values["date"] = new Date();
+          this.$emit("datas", values);
+
+          this.confirmLoading = true;
+          setTimeout(() => {
+            this.visible = false;
+            this.confirmLoading = false;
+            this.form.resetFields();
+          }, 2000);
+        }
+      });
     },
     handleCancel() {
       this.visible = false;
+      this.form.resetFields();
     },
     setVisible(visible) {
       this.visible = visible;
