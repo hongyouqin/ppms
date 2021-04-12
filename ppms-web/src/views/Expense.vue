@@ -141,7 +141,7 @@ const columns = [
     scopedSlots: { customRender: "生成时间" },
   },
   {
-    title: "操作者",
+    title: "操作",
     dataIndex: "operation",
     scopedSlots: { customRender: "operation" },
   },

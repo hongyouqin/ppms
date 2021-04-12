@@ -4,6 +4,7 @@ import VuexPersistence from 'vuex-persist'
 
 import user from './modules/user'
 import expense from './modules/expense'
+import income from './modules/income'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   modules: {
     user,
-    expense
+    expense,
+    income
   },
   state: {
   },
