@@ -1,5 +1,5 @@
 <template>
-  <div class="expense">
+  <div class="income">
     <a-breadcrumb style="margin: 16px 15px; text-align: left">
       <a-breadcrumb-item>主页</a-breadcrumb-item>
       <a-breadcrumb-item>收支管理</a-breadcrumb-item>
