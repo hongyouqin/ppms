@@ -103,7 +103,12 @@
         </a-layout-header>
         <a-layout-content>
           <div>
-            <router-view></router-view>
+            <keep-alive>
+              <router-view v-if="$route.meta.keepAlive"></router-view>
+            </keep-alive>
+            <router-view
+              v-if="$route.meta.keepAlive == undefined"
+            ></router-view>
           </div>
         </a-layout-content>
         <a-layout-footer> PPMS ©2021 Created by qhy </a-layout-footer>
@@ -121,6 +126,9 @@ export default {
     return {
       collapsed: false,
     };
+  },
+  created() {
+    console.log("created home page");
   },
   methods: {
     triggerFunc: function () {

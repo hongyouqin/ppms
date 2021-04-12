@@ -7,6 +7,9 @@
       <script>
 export default {
   name: "EarlyWarning",
+  created() {
+    console.log("created early page");
+  },
 };
 </script>
       <style scoped>

@@ -7,6 +7,9 @@
   <script>
 export default {
   name: "User",
+  created() {
+    console.log("created User page");
+  },
 };
 </script>
   <style scoped>

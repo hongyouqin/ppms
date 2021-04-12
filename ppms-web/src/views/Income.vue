@@ -7,6 +7,9 @@
         <script>
 export default {
   name: "Income",
+  created() {
+    console.log("created income page");
+  },
 };
 </script>
         <style scoped>

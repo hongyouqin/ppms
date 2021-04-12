@@ -8,6 +8,9 @@
 <script>
 export default {
   name: "ItemManage",
+  created() {
+    console.log("created ItemManage page");
+  },
 };
 </script>
 

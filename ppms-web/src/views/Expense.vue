@@ -63,7 +63,7 @@
           '冲动性消费',
           '备注',
           '记录者',
-          '生成时间',
+          'created',
         ]"
         :slot="col"
         slot-scope="text, record"
@@ -173,9 +173,12 @@ export default {
     };
   },
   created() {
+    console.log("created expense page");
     let datas = this.$store.getters.getExpenseDatas;
-    console.log("created datas: ", datas);
+    console.log("created datas: ", [...datas]);
     this.data = datas;
+    this.keyCount = this.data.length;
+    this.cacheData = this.data.map((item) => ({ ...item }));
   },
   computed: {},
   name: "Expense",
@@ -205,6 +208,8 @@ export default {
       const newCacheData = [...this.cacheData];
       const target = newData.filter((item) => key === item.key)[0];
       const targetCache = newCacheData.filter((item) => key === item.key)[0];
+      console.log("target", target);
+      console.log("target cache", targetCache);
       if (target && targetCache) {
         delete target.editable;
         this.data = newData;
@@ -262,8 +267,6 @@ export default {
 
       this.keyCount++;
       this.$store.commit("SET_EXPENSE_DATAS", this.data);
-      let datas = this.$store.getters.getExpenseDatas;
-      console.log("store datas: ", datas);
     },
   },
 };

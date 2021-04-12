@@ -7,6 +7,9 @@
 <script>
 export default {
   name: "Investment",
+  created() {
+    console.log("created Investment page");
+  },
 };
 </script>
 

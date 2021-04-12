@@ -7,6 +7,9 @@
       <script>
 export default {
   name: "Privilege",
+  created() {
+    console.log("created Privilege page");
+  },
 };
 </script>
       <style scoped>

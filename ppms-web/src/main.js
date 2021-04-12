@@ -20,7 +20,7 @@ new Vue({
   store,
   created: function () {
     //初始化
-    //storage.clearAll()
+    // window.localStorage.clear()
     store.commit('SET_TOKEN', storage.get(ACCESS_TOKEN))
     console.log("*********main start============")
   },
