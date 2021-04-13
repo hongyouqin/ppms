@@ -10,6 +10,7 @@
   "dependencies": {
     "ant-design-vue": "^1.7.3",
     "core-js": "^3.6.5",
+    "echarts": "^5.0.2",
     "qs.js": "^0.1.12",
     "store": "^2.0.12",
     "vue": "^2.6.11",
