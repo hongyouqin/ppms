@@ -111,6 +111,11 @@ export default {
   },
   created() {
     console.log("created User page");
+    let datas = this.$store.getters.getUserDatas;
+    console.log("created datas: ", [...datas]);
+    this.data = datas;
+    this.keyCount = this.data.length;
+    this.cacheData = this.data.map((item) => ({ ...item }));
   },
   components: {
     userForm,
@@ -122,6 +127,8 @@ export default {
     onDelete(key) {
       const data = [...this.data];
       this.data = data.filter((item) => key !== item.key);
+      //保存数据
+      this.$store.commit("SET_USER_DATAS", this.data);
     },
     addUser() {
       this.$refs.newUser.setVisible(true);
@@ -146,7 +153,7 @@ export default {
       }
 
       this.keyCount++;
-      //this.$store.commit("SET_INCOME_DATAS", null);
+      this.$store.commit("SET_USER_DATAS", this.data);
     },
   },
 };

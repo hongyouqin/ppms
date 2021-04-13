@@ -5,11 +5,20 @@ import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 const user = {
     state: {
-        token: ''
+        token: '',
+        userDatas: []
+    },
+    getters: {
+        getUserDatas(state) {
+            return state.userDatas
+        }
     },
     mutations: {
         SET_TOKEN: (state, token) => {
             state.token = token
+        },
+        SET_USER_DATAS: (state, datas) => {
+            state.userDatas = datas
         }
     },
     actions: {
