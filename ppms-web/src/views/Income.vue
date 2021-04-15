@@ -210,8 +210,6 @@ export default {
       const newCacheData = [...this.cacheData];
       const target = newData.filter((item) => key === item.key)[0];
       const targetCache = newCacheData.filter((item) => key === item.key)[0];
-      console.log("target", target);
-      console.log("target cache", targetCache);
       if (target && targetCache) {
         delete target.editable;
         this.data = newData;
