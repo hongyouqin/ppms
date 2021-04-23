@@ -1,0 +1,41 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+
+group = 'com.qhy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+
+// bootJar {
+//     mainClassName = 'com.qhy.ppmssecurity.PpmsSecurityApplication'
+// }
+
+repositories {
+	mavenCentral()
+}
+
+//这里一定得要。在多模块下，不然编译失败，因为不会把信赖模块给打包
+
+subprojects {
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	//implementation 'org.springframework.boot:spring-boot-starter'
+	//testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4bc467db-b61f-4e72-9710-3b324dd367c3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/ppms-admin/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ppms-admin/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppms-admin/docs/daily.md" beforeDir="false" afterPath="$PROJECT_DIR$/ppms-admin/docs/daily.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppms-admin/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ppms-admin/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppms-web/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/ppms-web/src/utils/request.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.8" />
+  </component>
+  <component name="ProjectId" id="1rVokqNdul2SY5JAY5I7XifeIGU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="11" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4bc467db-b61f-4e72-9710-3b324dd367c3" name="Default Changelist" comment="" />
+      <created>1619070764051</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1619070764051</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="194" y="25" width="1024" height="832" key="#Project_Structure" timestamp="1619071265891">
+      <screen x="0" y="25" width="1440" height="832" />
+    </state>
+    <state x="194" y="25" width="1024" height="832" key="#Project_Structure/0.25.1440.832@0.25.1440.832" timestamp="1619071265891" />
+    <state x="252" y="76" key="new project wizard" timestamp="1619071442798">
+      <screen x="0" y="25" width="1440" height="832" />
+    </state>
+    <state x="252" y="76" key="new project wizard/0.25.1440.832@0.25.1440.832" timestamp="1619071442798" />
+  </component>
+</project>
