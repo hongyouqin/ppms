@@ -5,6 +5,8 @@ import com.qhy.ppmssecurity.component.JwtAuthenticationTokenFilter;
 import com.qhy.ppmssecurity.component.RestAuthenticationEntryPoint;
 import com.qhy.ppmssecurity.component.RestfulAccessDeniedHandler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final Logger LOG = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -27,6 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // TODO Auto-generated method stub
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
                 .authorizeRequests();
+
+        // 不需要保护的资源路径允许访问
+        for (String url : ignoreUrlsConfig().getUrls()) {
+            LOG.info("path: " + url);
+            registry.antMatchers(url).permitAll();
+        }
 
         // 允许跨域请求的OPTIONS请求
         registry.antMatchers(HttpMethod.OPTIONS).permitAll();
