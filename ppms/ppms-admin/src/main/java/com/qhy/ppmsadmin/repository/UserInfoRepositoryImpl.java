@@ -1,6 +1,7 @@
 package com.qhy.ppmsadmin.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -22,9 +23,12 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     @Override
     public UserInfo findByEmail(String email) {
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
             UserInfo userInfo = session.createQuery("from UserInfo as u where u.email = :email", UserInfo.class)
                     .setParameter("email", email).getSingleResult();
+            tx.commit();
+            session.close();
             return userInfo;
         } catch (NoResultException ex) {
             ex.printStackTrace();
@@ -38,9 +42,12 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     @Override
     public UserInfo findByName(String userName) {
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
             UserInfo userInfo = session.createQuery("from UserInfo as u where u.userName = :user_name", UserInfo.class)
                     .setParameter("user_name", userName).getSingleResult();
+            tx.commit();
+            session.close();
             return userInfo;
         } catch (NoResultException ex) {
             ex.printStackTrace();
@@ -55,10 +62,11 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     public UserInfo save(UserInfo user) {
 
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
             session.save(user);
             tx.commit();
+            session.close();
             return user;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -84,6 +92,21 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
         }
         existUser.setPassword(password);
         return save(existUser);
+    }
+
+    @Override
+    public List<UserInfo> findAll() {
+        try {
+            Session session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            List<UserInfo> infos = session.createQuery("from UserInfo", UserInfo.class).list();
+            tx.commit();
+            session.close();
+            return infos;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DatabaseManipulationException("findAll failed");
+        }
     }
 
 }

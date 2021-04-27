@@ -13,6 +13,7 @@ public class SwaggerConfiguration {
 
     @Bean
     public Docket createRestApi() {
+
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(new ApiInfoBuilder().contact(new Contact("qinhy", "", "yang.qq123@163.com"))
                         .title("PPMS admin").version("1.0.0").description("个人理财管理系统").build());

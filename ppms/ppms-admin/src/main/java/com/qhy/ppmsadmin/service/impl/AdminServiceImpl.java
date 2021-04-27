@@ -1,16 +1,18 @@
 package com.qhy.ppmsadmin.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import com.qhy.ppmsadmin.entity.UserInfo;
-import com.qhy.ppmsadmin.common.config.CustomJwtConfig;
+import com.qhy.ppmsadmin.dto.AdminUserDetails;
 import com.qhy.ppmsadmin.dto.UserLoginParam;
 import com.qhy.ppmsadmin.dto.UserRegisterParam;
 import com.qhy.ppmsadmin.repository.UserInfoRepositoryImpl;
-import com.qhy.ppmsadmin.security.JwtTokenUtil;
 import com.qhy.ppmsadmin.service.AdminService;
+import com.qhy.ppmssecurity.common.util.JwtTokenUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +22,10 @@ public class AdminServiceImpl implements AdminService {
     UserInfoRepositoryImpl userInfoRepository;
 
     @Autowired
-    private CustomJwtConfig config;
+    JwtTokenUtil jwtTokenUtil;
+
+    // @Autowired
+    // private CustomJwtConfig config;
 
     public AdminServiceImpl() {
 
@@ -72,11 +77,27 @@ public class AdminServiceImpl implements AdminService {
         String pwd = existUser.getPassword();
         if (pwd.equals(param.getPassword())) {
             // 返回jwt token
-            JwtTokenUtil jwt = new JwtTokenUtil(config.getSecret(), config.getTokenHead(), config.getExpiration());
-            return jwt.generateToken(existUser.getEmail());
+            AdminUserDetails adminUserDetails = new AdminUserDetails(existUser);
+            return jwtTokenUtil.generateToken(adminUserDetails);
         }
 
         return null;
+    }
+
+    @Override
+    public UserDetails loadUserByEmail(String username) {
+        UserInfo existUser = findUser(username);
+        if (existUser == null) {
+            return null;
+        }
+        AdminUserDetails adminUserDetails = new AdminUserDetails(existUser);
+        return adminUserDetails;
+    }
+
+    @Override
+    public List<UserInfo> userInfoList() {
+        List<UserInfo> infos = userInfoRepository.findAll();
+        return infos;
     }
 
 }

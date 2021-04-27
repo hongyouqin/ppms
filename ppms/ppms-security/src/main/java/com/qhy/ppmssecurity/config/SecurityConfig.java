@@ -17,7 +17,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final Logger LOG = LoggerFactory.getLogger(SecurityConfig.class);
+    // private static final Logger LOG =
+    // LoggerFactory.getLogger(SecurityConfig.class);
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -33,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 不需要保护的资源路径允许访问
         for (String url : ignoreUrlsConfig().getUrls()) {
-            LOG.info("path: " + url);
             registry.antMatchers(url).permitAll();
         }
 
