@@ -11,7 +11,10 @@ import com.qhy.ppmsadmin.dto.UserRegisterParam;
 import com.qhy.ppmsadmin.entity.UserInfo;
 import com.qhy.ppmsadmin.service.AdminService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,10 +25,13 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
+@CrossOrigin
 @RestController
 @Api(tags = "AdminController", description = "登录、注册、登出相关的接口")
 // @RequestMapping(value = "/auth")
 public class AdminController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
     @Autowired
     private AdminService adminServiceImpl;
@@ -36,10 +42,13 @@ public class AdminController {
     @ApiOperation(value = "用户登录")
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
     public CommonResult<Map<String, String>> login(@RequestBody UserLoginParam param) {
+        LOG.info("login param :" + param.toString());
         String token = adminServiceImpl.login(param);
         if (token == null) {
+            LOG.info("suer login failed 用户名或密码错误: ");
             return CommonResult.failed("用户名或密码错误");
         }
+        LOG.info("suer login token: " + token);
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", config.getTokenHead());

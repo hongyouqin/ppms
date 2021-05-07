@@ -9,10 +9,10 @@ const allowList = ['login', 'reg']
 
 //拦截器
 router.beforeEach((to, from, next) => {
-
+    console.log("have token router from-name: ", storage.get(ACCESS_TOKEN))
     if (storage.get(ACCESS_TOKEN)) {
-        console.log("router from-name: ", storage.get(ACCESS_TOKEN))
-        console.log("path name : ", to.path)
+        console.log("have token router from-name: ", storage.get(ACCESS_TOKEN))
+        console.log("have token path name : ", to.path)
         if (to.path === loginRoutePath || to.path == '/') {
             next({ path: defaultRoutePath })
         } else {

@@ -15,7 +15,7 @@ public interface UserInfoRepository {
 
     UserInfo save(UserInfo user);
 
-    UserInfo updateLoginTime(Date loginTime, String userName);
+    UserInfo updateLoginTime(Date loginTime, String email);
 
-    UserInfo updatePassword(String password, String userName);
+    UserInfo updatePassword(String password, String email);
 }

@@ -96,7 +96,9 @@
                 <a-menu-item><a-icon type="user" />个人中心</a-menu-item>
                 <a-menu-item><a-icon type="setting" />设置</a-menu-item>
                 <a-menu-divider></a-menu-divider>
-                <a-menu-item><a-icon type="poweroff" />退出登录</a-menu-item>
+                <a-menu-item @click="handleLoginOut"
+                  ><a-icon type="poweroff" />退出登录</a-menu-item
+                >
               </a-menu>
             </a-dropdown>
           </div>
@@ -119,6 +121,8 @@
 
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Home",
   components: {},
@@ -131,6 +135,7 @@ export default {
     console.log("created home page");
   },
   methods: {
+    ...mapActions(["LoginOut"]),
     triggerFunc: function () {
       this.collapsed = !this.collapsed;
     },
@@ -160,6 +165,11 @@ export default {
     },
     handleEarly: function () {
       this.$router.push("early");
+    },
+    handleLoginOut: function () {
+      console.log("loginout");
+      this.LoginOut();
+      this.$router.push("login");
     },
   },
 };

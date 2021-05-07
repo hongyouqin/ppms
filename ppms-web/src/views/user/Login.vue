@@ -26,7 +26,7 @@
                   id="email"
                   type="email"
                   v-decorator="[
-                    'email',
+                    'account',
                     { rules: [{ required: true, message: '请输入邮箱' }] },
                   ]"
                   placeholder="邮箱"
@@ -104,18 +104,21 @@ export default {
       validateFields({ force: true }, (err, values) => {
         if (!err) {
           const loginParams = { ...values };
-          console.log(loginParams);
           Login(loginParams)
             .then((res) => {
-              console.log(res);
+              if (res.code != 200) {
+                this.$router.push("/dashboard", () => {});
+                console.log("登录失败");
+              } else {
+                $router.push({ name: "dashboard", params: { ...values } });
+              }
             })
             .catch((err) => {
-              console.log(err);
+              console.log("jjj===", err);
             })
             .finally(() => {
               console.log("login complete");
             });
-          $router.push({ name: "home", params: { ...values } });
         } else {
           console.log("ERR Received values of form: ", values);
         }

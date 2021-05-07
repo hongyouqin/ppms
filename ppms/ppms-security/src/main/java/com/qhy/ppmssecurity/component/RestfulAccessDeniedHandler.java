@@ -21,6 +21,7 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
         // TODO Auto-generated method stub
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("X-Frame-Options", "SAMEORIGIN");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.getWriter().println(JSONUtil.parse(CommonResult.forbidden(accessDeniedException.getMessage())));

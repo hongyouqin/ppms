@@ -20,6 +20,19 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public void update(UserInfo user) {
+        try {
+            Session session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            session.update(user);
+            tx.commit();
+            session.close();
+        } catch (Exception ex) {
+            // ex.printStackTrace();
+            throw new DatabaseManipulationException(user.getUserName() + " update failed");
+        }
+    }
+
     @Override
     public UserInfo findByEmail(String email) {
         try {
@@ -31,7 +44,6 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
             session.close();
             return userInfo;
         } catch (NoResultException ex) {
-            ex.printStackTrace();
             return null;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -75,23 +87,25 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     }
 
     @Override
-    public UserInfo updateLoginTime(Date loginTime, String userName) {
-        UserInfo existUser = this.findByName(userName);
+    public UserInfo updateLoginTime(Date loginTime, String email) {
+        UserInfo existUser = this.findByEmail(email);
         if (existUser == null) {
             return null;
         }
         existUser.setLoginTime(loginTime);
-        return save(existUser);
+        this.update(existUser);
+        return existUser;
     }
 
     @Override
-    public UserInfo updatePassword(String password, String userName) {
-        UserInfo existUser = this.findByName(userName);
+    public UserInfo updatePassword(String password, String email) {
+        UserInfo existUser = this.findByEmail(email);
         if (existUser == null) {
             return null;
         }
         existUser.setPassword(password);
-        return save(existUser);
+        this.update(existUser);
+        return existUser;
     }
 
     @Override

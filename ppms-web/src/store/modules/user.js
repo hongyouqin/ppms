@@ -24,19 +24,25 @@ const user = {
     actions: {
         //登录
         Login({ commit }, userInfo) {
-            console.log("登录请求")
             return new Promise((resolve, reject) => {
                 login(userInfo).then(response => {
-                    const result = response.result
-                    storage.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
-                    commit('SET_TOKEN', result.token)
-                    resolve()
+                    const result = response.data
+                    if (result.code == 200) {
+                        let tokenHead = result.data.tokenHead
+                        let token = result.data.token
+                        commit('SET_TOKEN', tokenHead + token)
+                        storage.set(ACCESS_TOKEN, tokenHead + token, 7 * 24 * 60 * 60 * 1000)
+                        console.log(tokenHead + token)
+                    }
+                    resolve(result)
                 }).catch(error => {
-                    console.log("请求失败")
-                    storage.set(ACCESS_TOKEN, "12344", 7 * 24 * 60 * 60 * 1000)
                     reject(error)
                 })
             })
+        },
+        LoginOut({ commit }) {
+            commit('SET_TOKEN', "")
+            window.localStorage.clear()
         }
     }
 }

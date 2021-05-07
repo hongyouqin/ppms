@@ -76,6 +76,9 @@ public class AdminServiceImpl implements AdminService {
         }
         String pwd = existUser.getPassword();
         if (pwd.equals(param.getPassword())) {
+            // 更新登录时间
+            userInfoRepository.updateLoginTime(new Date(), existUser.getEmail());
+
             // 返回jwt token
             AdminUserDetails adminUserDetails = new AdminUserDetails(existUser);
             return jwtTokenUtil.generateToken(adminUserDetails);

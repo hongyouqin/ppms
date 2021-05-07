@@ -1,8 +1,10 @@
 import axios from 'axios'
+//import https from 'https'
+
 
 // 创建axios 实例
 const request = axios.create({
-    baseURL: 'https://localhost:6888',
+    baseURL: 'http://localhost:6888',
     timeout: 6000
 })
 
