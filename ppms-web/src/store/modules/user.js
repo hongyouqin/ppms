@@ -1,5 +1,6 @@
 import storage from 'store'
 import { login } from '@/api/login'
+import { fetchUsers } from '@/api/user'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 
@@ -27,22 +28,34 @@ const user = {
             return new Promise((resolve, reject) => {
                 login(userInfo).then(response => {
                     const result = response.data
-                    if (result.code == 200) {
-                        let tokenHead = result.data.tokenHead
-                        let token = result.data.token
+                    if (response.code == 200) {
+                        let tokenHead = result.tokenHead
+                        let token = result.token
                         commit('SET_TOKEN', tokenHead + token)
                         storage.set(ACCESS_TOKEN, tokenHead + token, 7 * 24 * 60 * 60 * 1000)
-                        console.log(tokenHead + token)
                     }
-                    resolve(result)
+                    resolve(response)
                 }).catch(error => {
                     reject(error)
                 })
             })
         },
+        //退出登录
         LoginOut({ commit }) {
             commit('SET_TOKEN', "")
-            window.localStorage.clear()
+            storage.remove(ACCESS_TOKEN)
+        },
+        //批量获取用户
+        FetchUsers() {
+            return new Promise(
+                (resolve, reject) => {
+                    fetchUsers().then(response => {
+                        resolve(response)
+                    }).catch(error => {
+                        reject(error)
+                    })
+                }
+            )
         }
     }
 }

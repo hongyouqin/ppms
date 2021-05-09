@@ -53,6 +53,7 @@
 <script>
 import userForm from "../components/userForm.vue";
 import { formatDatetime } from "../utils/dateUtil.js";
+import { mapActions } from "vuex";
 
 const dataHeads = {
   email: "邮箱",
@@ -111,16 +112,20 @@ export default {
   },
   created() {
     console.log("created User page");
+
     let datas = this.$store.getters.getUserDatas;
     console.log("created datas: ", [...datas]);
     this.data = datas;
     this.keyCount = this.data.length;
     this.cacheData = this.data.map((item) => ({ ...item }));
+
+    this.loadUserDatas();
   },
   components: {
     userForm,
   },
   methods: {
+    ...mapActions(["FetchUsers"]),
     onSearch(value) {
       console.log(value);
     },
@@ -154,6 +159,33 @@ export default {
 
       this.keyCount++;
       this.$store.commit("SET_USER_DATAS", this.data);
+    },
+    loadUserDatas() {
+      this.FetchUsers()
+        .then((res) => {
+          if (res.code == 200) {
+            this.data = []; //清空数组
+            this.keyCount = 0;
+
+            for (var i = 0; i < res.data.length; i++) {
+              let value = res.data[i];
+              let d = {
+                key: this.keyCount.toString(),
+                邮箱: value.email,
+                用户名: value.userName,
+                登录时间: value.loginTime,
+                注册时间: value.createdTime,
+              };
+              this.data.push(d);
+              this.keyCount++;
+            }
+
+            this.$store.commit("SET_USER_DATAS", this.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

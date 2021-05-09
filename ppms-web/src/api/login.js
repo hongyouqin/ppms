@@ -29,7 +29,7 @@ export function reg(param) {
             url: userApi.register,
             method: 'post',
             headers: {
-                'Authorization': 'Bearer ' + token,
+                'Authorization': token,
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             data: qs.stringify(param)
