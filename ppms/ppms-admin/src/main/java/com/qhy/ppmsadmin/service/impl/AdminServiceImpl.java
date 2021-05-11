@@ -103,4 +103,19 @@ public class AdminServiceImpl implements AdminService {
         return infos;
     }
 
+    @Override
+    public UserInfo addUser(UserRegisterParam param) {
+        // TODO Auto-generated method stub
+        if (findUserExist(param)) {
+            return null;
+        }
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setEmail(param.getEmail());
+        userInfo.setUserName(param.getUserName());
+        userInfo.setPassword(param.getPassword());
+        userInfo.setCreatedTime(new Date());
+        return userInfoRepository.save(userInfo);
+    }
+
 }

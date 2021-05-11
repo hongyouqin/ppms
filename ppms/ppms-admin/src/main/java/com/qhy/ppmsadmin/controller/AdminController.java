@@ -74,4 +74,16 @@ public class AdminController {
         return CommonResult.success(infos);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header", dataType = "String", name = "Authorization", value = "token", required = true) })
+    @ApiOperation(value = "添加新用户")
+    @RequestMapping(value = "sys/user", method = RequestMethod.POST)
+    public CommonResult<UserInfo> addNewUser(@RequestBody UserRegisterParam param) {
+        UserInfo userInfo = adminServiceImpl.addUser(param);
+        if (userInfo == null) {
+            return CommonResult.failed("用户名或者邮箱名已经存在");
+        }
+        return CommonResult.success(userInfo);
+    }
+
 }

@@ -125,7 +125,7 @@ export default {
     userForm,
   },
   methods: {
-    ...mapActions(["FetchUsers"]),
+    ...mapActions(["FetchUsers", "AddUser"]),
     onSearch(value) {
       console.log(value);
     },
@@ -139,26 +139,51 @@ export default {
       this.$refs.newUser.setVisible(true);
     },
     eventDatas(values) {
-      let regDate = formatDatetime(values.regDate, "yyyy-MM-dd hh:mm:sss");
-      let loginDate = formatDatetime(values.loginDate, "yyyy-MM-dd hh:mm:sss");
-
-      var showDatas = {
-        key: this.keyCount.toString(),
-        邮箱: values.email,
-        用户名: values.userName,
-        登录时间: loginDate,
-        注册时间: regDate,
+      //存入数据库
+      const userInfo = {
+        email: values.email,
+        userName: values.userName,
+        password: values.password,
       };
+      this.AddUser(userInfo).then((res) => {
+        if (res.code == 200) {
+          //添加用户成功
+          let regDate = formatDatetime(values.regDate, "yyyy-MM-dd hh:mm:sss");
+          let loginDate = formatDatetime(
+            values.loginDate,
+            "yyyy-MM-dd hh:mm:sss"
+          );
+          var showDatas = {
+            key: this.keyCount.toString(),
+            邮箱: values.email,
+            用户名: values.userName,
+            登录时间: loginDate,
+            注册时间: regDate,
+          };
 
-      //添加收入
-      if (this.data.length == 0) {
-        this.data.push(showDatas);
-      } else {
-        this.data.splice(0, 0, showDatas);
-      }
+          //添加收入
+          if (this.data.length == 0) {
+            this.data.push(showDatas);
+          } else {
+            this.data.splice(0, 0, showDatas);
+          }
 
-      this.keyCount++;
-      this.$store.commit("SET_USER_DATAS", this.data);
+          this.keyCount++;
+          this.$store.commit("SET_USER_DATAS", this.data);
+        } else {
+          //添加失败
+          console.log(res);
+          alert("添加用户失败");
+        }
+      });
+    },
+    newUser(userInfo) {
+      this.AddUser(userInfo).then((res) => {
+        console.log("**** new user", res);
+        // if (res.code == 200) {
+        //   console.log("new user", res);
+        // }
+      });
     },
     loadUserDatas() {
       this.FetchUsers()

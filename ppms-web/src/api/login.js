@@ -1,6 +1,6 @@
 import request from '@/utils/request'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
-import storage from 'store'
+// import { ACCESS_TOKEN } from '@/store/mutation-types'
+// import storage from 'store'
 import qs from 'qs'
 
 const userApi = {
@@ -23,13 +23,11 @@ export function login(param) {
 }
 
 export function reg(param) {
-    let token = storage.get(ACCESS_TOKEN)
     return request(
         {
             url: userApi.register,
             method: 'post',
             headers: {
-                'Authorization': token,
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             data: qs.stringify(param)

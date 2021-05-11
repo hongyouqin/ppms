@@ -1,6 +1,6 @@
 import storage from 'store'
 import { login } from '@/api/login'
-import { fetchUsers } from '@/api/user'
+import { fetchUsers, addUser } from '@/api/user'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 
@@ -56,7 +56,21 @@ const user = {
                     })
                 }
             )
+        },
+        //添加用户
+        AddUser(commit, userInfo) {
+            return new Promise((resolve, reject) => {
+                addUser(userInfo).then(response => {
+                    console.log("add user: ", response)
+                    resolve(response)
+                }).catch(error => {
+                    reject(error)
+                })
+            }
+
+            )
         }
+
     }
 }
 

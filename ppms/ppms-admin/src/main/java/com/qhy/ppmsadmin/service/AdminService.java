@@ -34,4 +34,11 @@ public interface AdminService {
      * @return 批量用户信息
      */
     List<UserInfo> userInfoList();
+
+    /**
+     * 添加新用户
+     * 
+     * @return UserInfo
+     */
+    UserInfo addUser(UserRegisterParam param);
 }
