@@ -61,7 +61,6 @@ const user = {
         AddUser(commit, userInfo) {
             return new Promise((resolve, reject) => {
                 addUser(userInfo).then(response => {
-                    console.log("add user: ", response)
                     resolve(response)
                 }).catch(error => {
                     reject(error)

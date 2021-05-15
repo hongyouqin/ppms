@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store/'
 import storage from 'store'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 //import https from 'https'
@@ -16,12 +17,12 @@ const errorHandler = (error) => {
         if (error.response.code === 401) {
             if (token) {
                 console.log("======= loginout")
-                storage.dispatch('LoginOUt').then(() => {
-                    setTimeout(() => {
-                        console.log("======= loginout reload")
-                        window.location.reload()
-                    }, 1500)
-                })
+                // store.dispatch('LoginOUt').then(() => {
+                //     setTimeout(() => {
+                //         console.log("======= loginout reload")
+                //         window.location.reload()
+                //     }, 1500)
+                // })
             }
         }
     }
@@ -32,7 +33,23 @@ const errorHandler = (error) => {
 // })
 
 request.interceptors.response.use((response) => {
-    return response.data
+    if (response.data.code != 200) {
+        const token = storage.get(ACCESS_TOKEN)
+        if (response.data.code === 401) {
+            if (token) {
+                console.log("======= loginout")
+                store.dispatch('LoginOut').then(() => {
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1500)
+                })
+            }
+        } else {
+            return response.data
+        }
+    } else {
+        return response.data
+    }
 }, errorHandler)
 
 export default request

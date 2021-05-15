@@ -99,16 +99,18 @@ export default {
         if (!err) {
           values["regDate"] = new Date();
           values["loginDate"] = new Date();
-          this.$emit("datas", values);
 
-          console.log("datas = ", values);
-
-          this.confirmLoading = true;
-          setTimeout(() => {
-            this.visible = false;
-            this.confirmLoading = false;
-            this.form.resetFields();
-          }, 2000);
+          this.$emit("datas", values, (val) => {
+            if (val == 0) {
+              // 成功
+              this.confirmLoading = true;
+              setTimeout(() => {
+                this.visible = false;
+                this.confirmLoading = false;
+                this.form.resetFields();
+              }, 2000);
+            }
+          });
         }
       });
     },

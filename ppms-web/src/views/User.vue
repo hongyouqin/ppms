@@ -138,7 +138,7 @@ export default {
     addUser() {
       this.$refs.newUser.setVisible(true);
     },
-    eventDatas(values) {
+    eventDatas(values, callback) {
       //存入数据库
       const userInfo = {
         email: values.email,
@@ -170,19 +170,13 @@ export default {
 
           this.keyCount++;
           this.$store.commit("SET_USER_DATAS", this.data);
+          callback(0);
         } else {
           //添加失败
           console.log(res);
           alert("添加用户失败");
+          callback(1);
         }
-      });
-    },
-    newUser(userInfo) {
-      this.AddUser(userInfo).then((res) => {
-        console.log("**** new user", res);
-        // if (res.code == 200) {
-        //   console.log("new user", res);
-        // }
       });
     },
     loadUserDatas() {
