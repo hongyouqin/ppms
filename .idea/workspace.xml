@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bc467db-b61f-4e72-9710-3b324dd367c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ppms-admin/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ppms-admin/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ppms-admin/docs/daily.md" beforeDir="false" afterPath="$PROJECT_DIR$/ppms-admin/docs/daily.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ppms-admin/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ppms-admin/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ppms-web/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/ppms-web/src/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppms/ppms-admin/src/main/java/com/qhy/ppmsadmin/repository/HibernateConf.java" beforeDir="false" afterPath="$PROJECT_DIR$/ppms/ppms-admin/src/main/java/com/qhy/ppmsadmin/repository/HibernateConf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppms/ppms-admin/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ppms/ppms-admin/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppms/ppms-admin/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ppms/ppms-admin/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppms/ppms-admin/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ppms/ppms-admin/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ppms/ppms-admin/src/main/resources/db/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ppms/ppms-admin/src/main/resources/db/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

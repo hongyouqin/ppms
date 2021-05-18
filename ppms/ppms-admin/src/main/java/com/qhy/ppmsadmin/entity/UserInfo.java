@@ -24,7 +24,7 @@ public class UserInfo {
 
     private String email;
 
-    @Column(name = "pwd")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "created_time")

@@ -9,3 +9,5 @@ CREATE TABLE user_info
     created_time DATETIME,
     login_time DATETIME
 );
+
+-- 收入表
