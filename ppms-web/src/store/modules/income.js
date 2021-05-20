@@ -1,4 +1,6 @@
 
+import { addIncome } from '@/api/inex'
+
 const income = {
     state: {
         incomeDatas: []
@@ -14,7 +16,16 @@ const income = {
         }
     },
     actions: {
-
+        AddIncome(commit, param) {
+            return new Promise((resolve, reject) => {
+                addIncome(param).then(response => {
+                    resolve(response)
+                }).catch(error => {
+                    reject(error)
+                })
+            }
+            )
+        }
     }
 }
 

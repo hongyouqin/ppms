@@ -36,7 +36,7 @@
                 'price',
                 {
                   rules: [{ required: true, message: '请输入金额' }],
-                  initialValue: '0',
+                  initialValue: 0,
                 },
               ]"
             />
@@ -96,14 +96,18 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           values["date"] = new Date();
-          this.$emit("datas", values);
 
-          this.confirmLoading = true;
-          setTimeout(() => {
-            this.visible = false;
-            this.confirmLoading = false;
-            this.form.resetFields();
-          }, 2000);
+          this.$emit("datas", values, (val) => {
+            if (val == 0) {
+              // 成功
+              this.confirmLoading = true;
+              setTimeout(() => {
+                this.visible = false;
+                this.confirmLoading = false;
+                this.form.resetFields();
+              }, 2000);
+            }
+          });
         }
       });
     },

@@ -11,8 +11,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import io.swagger.annotations.ApiModelProperty;
-
 @Entity
 @Table(name = "income")
 public class Income {
@@ -24,11 +22,11 @@ public class Income {
     private String userName;
     private String recorder;
     private String source; // 来源
-    private String desc;
+    @Column(name = "describle")
+    private String describle;
     private String title;
 
     @Column(name = "created_time")
-    @ApiModelProperty(value = "创建时间")
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdTime;
 
@@ -103,20 +101,6 @@ public class Income {
     }
 
     /**
-     * @return the desc
-     */
-    public String getDesc() {
-        return desc;
-    }
-
-    /**
-     * @param desc the desc to set
-     */
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    /**
      * @return the title
      */
     public String getTitle() {
@@ -142,6 +126,20 @@ public class Income {
      */
     public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
+    }
+
+    /**
+     * @return the describle
+     */
+    public String getDescrible() {
+        return describle;
+    }
+
+    /**
+     * @param describle the describle to set
+     */
+    public void setDescrible(String describle) {
+        this.describle = describle;
     }
 
 }

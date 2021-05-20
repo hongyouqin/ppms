@@ -102,6 +102,7 @@
 <script>
 import incomeForm from "../components/IncomeForm.vue";
 import { formatDatetime } from "../utils/dateUtil.js";
+import { mapActions } from "vuex";
 
 const dataHeads = {
   title: "标题",
@@ -188,6 +189,7 @@ export default {
     incomeForm,
   },
   methods: {
+    ...mapActions(["AddIncome"]),
     handleChange(value, key, column) {
       const newData = [...this.data];
       const target = newData.filter((item) => key === item.key)[0];
@@ -244,28 +246,45 @@ export default {
     showExpenseForm() {
       this.$refs.income.setVisible(true);
     },
-    eventDatas(values) {
-      var date = values.date;
-      let fmtDate = formatDatetime(date, "yyyy-MM-dd hh:mm:sss");
-      var showDatas = {
-        key: this.keyCount.toString(),
-        标题: values.title,
-        金额: values.price,
-        收入来源: values.expensesType,
-        生成时间: fmtDate,
-        备注: values.remarks,
-        录入者: values.recorder,
+    eventDatas(values, callback) {
+      const param = {
+        title: values.title,
+        money: values.price,
+        source: values.source,
+        recorder: values.recorder,
+        remarks: values.remarks,
       };
+      this.AddIncome(param).then((res) => {
+        if (res.code == 200) {
+          var date = values.date;
+          let fmtDate = formatDatetime(date, "yyyy-MM-dd hh:mm:sss");
+          var showDatas = {
+            key: this.keyCount.toString(),
+            标题: values.title,
+            金额: values.price,
+            收入来源: values.expensesType,
+            生成时间: fmtDate,
+            备注: values.remarks,
+            录入者: values.recorder,
+          };
 
-      //添加收入
-      if (this.data.length == 0) {
-        this.data.push(showDatas);
-      } else {
-        this.data.splice(0, 0, showDatas);
-      }
+          //添加收入
+          if (this.data.length == 0) {
+            this.data.push(showDatas);
+          } else {
+            this.data.splice(0, 0, showDatas);
+          }
 
-      this.keyCount++;
-      this.$store.commit("SET_INCOME_DATAS", this.data);
+          this.keyCount++;
+          this.$store.commit("SET_INCOME_DATAS", this.data);
+          callback(0);
+        } else {
+          //添加失败
+          console.log(res);
+          alert("录入失败");
+          callback(1);
+        }
+      });
     },
   },
 };
